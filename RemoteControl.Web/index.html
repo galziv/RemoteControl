@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html class="spread">
+<head>
+    <title>RemoteControl</title>
+    <meta charset="utf-8" />
+    <link href="Content/font-awesome.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <style>
+        
+        body {
+            overflow: hidden;
+        }
+
+         .spread {
+             height: 100%;
+             width: 100%;
+         }
+
+        i {
+            font-size: 40pt !important;
+            padding-top: 10px;
+        }
+
+        i.fa-chevron-right {
+            padding-top: 15px;
+        }
+
+        div {
+            text-align: center;
+        }
+    </style>
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+
+        var lastPoint = { x: null, y: null };
+
+        function onTouchEnd() {
+            lastPoint = { x: null, y: null };
+        }
+
+        function sendTouchDelta(e) {
+
+            e.stopPropagation();
+
+            var xDelta = e.changedTouches[0].pageX - lastPoint.x;
+            var yDelta = e.changedTouches[0].pageY - lastPoint.y;
+
+            if (!lastPoint.x) {
+                sendDelta(0, 0, e.changedTouches[0].pageX, e.changedTouches[0].pageY);
+            } else {
+                sendDelta(xDelta, yDelta, e.changedTouches[0].pageX, e.changedTouches[0].pageY);
+            }
+
+            document.body.scrollLeft = 0;
+            document.body.scrollTop = 0;
+        }
+
+        function sendMouseDelta(e) {
+
+            var xDelta = e.clientX - lastPoint.x;
+            var yDelta = e.clientY - lastPoint.y;
+
+            if (!lastPoint.x) {
+                sendDelta(0, 0, e.clientX, e.clientY);
+            } else {
+                sendDelta(xDelta, yDelta, e.clientX, e.clientY);
+            }
+        }
+
+        function sendDelta(xDelta, yDelta, lastX, lastY) {
+            var div = document.querySelector('div');
+            div.innerHTML = 'x: ' + xDelta + ', y: ' + yDelta;
+            div.innerHTML += '<br/>';
+            div.innerHTML += 'xDelta: ' + xDelta + ', yDelta: ' + yDelta;
+
+            lastPoint.x = lastX;
+            lastPoint.y = lastY;
+
+            //if (Math.abs(xDelta) < 2 && Math.abs(yDelta) < 2) {
+            //    return;
+            //}
+
+            $.ajax({
+                method: "GET",
+                url: "api/Control/MoveMouseBy?xDelta=" + xDelta.toFixed(0) * 1 + "&yDelta=" + yDelta.toFixed(0) * 1
+            });
+        }
+
+        function sendLeftClick(e) {
+
+            e.stopPropagation();
+
+            $.ajax({
+                method: "GET",
+                url: "api/Control/MouseLeftClick"
+            });
+        }
+
+        function sendRightClick(e) {
+
+            e.stopPropagation();
+
+            $.ajax({
+                method: "GET",
+                url: "api/Control/MouseRightClick"
+            });
+        }
+
+        function sendMute(e) {
+
+            e.stopPropagation();
+
+            $.ajax({
+                method: "GET",
+                url: "api/Control/KeyboardMute"
+            });
+        }
+
+        function sendVolumeUp(e) {
+
+            e.stopPropagation();
+
+            $.ajax({
+                method: "GET",
+                url: "api/Control/KeyboardVolumeDown"
+            });
+        }
+
+        function sendVolumeDown(e) {
+
+            e.stopPropagation();
+
+            $.ajax({
+                method: "GET",
+                url: "api/Control/KeyboardVolumeUp"
+            });
+        }
+    </script>
+</head>
+<body onclick="sendLeftClick(event);" class="spread" onscroll="return false;">
+    <div class="spread" ontouchmove="sendTouchDelta(event);" ontouchend="onTouchEnd();" style="background-color: lightsalmon;"></div>
+    <div class="btn" style="position: fixed; bottom: 0px; height: 80px; background-color: yellow; width: 50%;" onclick="sendLeftClick(event);">
+        <i class="fa fa-chevron-left"></i>
+    </div>
+    <div style="position: fixed; bottom: 0px; height: 80px; background-color: lightgreen; width: 50%; left: 50%;" onclick="sendRightClick(event);">
+        <i class="fa fa-chevron-right"></i>
+    </div>
+    <div style="position: fixed; bottom: 80px; height: 80px; background-color: lightpink; width: 33.3%;" onclick="sendMute(event);">
+        <i class="fa fa-volume-off"></i>
+    </div>
+    <div style="position: fixed; bottom: 80px; height: 80px; background-color: lightblue; width: 33.3%; left: 33.3%" onclick="sendVolumeUp(event);">
+        <i class="fa fa-volume-down"></i>
+    </div>
+    <div style="position: fixed; bottom: 80px; height: 80px; background-color: lightcyan; width: 33.3%; left: 66.6%;" onclick="sendVolumeDown(event);">
+        <i class="fa fa-volume-up"></i>
+    </div>
+</body>
+</html>

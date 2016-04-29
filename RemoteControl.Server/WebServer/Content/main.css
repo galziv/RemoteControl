@@ -1,0 +1,54 @@
+﻿
+body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.spread {
+    height: 100%;
+    width: 100%;
+}
+
+i {
+    font-size: 40pt !important;
+    padding-top: 10px;
+}
+
+    i.fa-chevron-right {
+        padding-top: 15px;
+    }
+
+* {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+img.icon {
+    height: 90%;
+}
+
+#buttons-container > div {
+    float: left;
+    padding: 0;
+    margin: 0;
+    border: none;
+    width: 33.3%;
+    height: 50%;
+    text-align: center;
+    border-radius: 0;
+}
+
+.row-of-4 {
+    width: 100% !important;
+}
+
+.row-of-4 > div {
+    width: 25%;
+    float: left;
+    height: 100%;
+}

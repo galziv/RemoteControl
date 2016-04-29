@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteControl.Server", "RemoteControl.Server\RemoteControl.Server.csproj", "{675B69A8-8FBA-4C26-9264-0A9D805586EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteControl.Actions", "RemoteControl.Actions\RemoteControl.Actions.csproj", "{47364C77-8BD8-45BC-8D33-1293876CDD98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteControl.Web", "RemoteControl.Web\RemoteControl.Web.csproj", "{08F77B64-EF6C-4BB7-A710-99E62CBEF4FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteControl.Transmitter", "RemoteControl.Transmitter\RemoteControl.Transmitter.csproj", "{2682E348-62CA-4B3A-9357-0453C9892DA3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{675B69A8-8FBA-4C26-9264-0A9D805586EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{675B69A8-8FBA-4C26-9264-0A9D805586EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{675B69A8-8FBA-4C26-9264-0A9D805586EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{675B69A8-8FBA-4C26-9264-0A9D805586EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47364C77-8BD8-45BC-8D33-1293876CDD98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47364C77-8BD8-45BC-8D33-1293876CDD98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47364C77-8BD8-45BC-8D33-1293876CDD98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47364C77-8BD8-45BC-8D33-1293876CDD98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08F77B64-EF6C-4BB7-A710-99E62CBEF4FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08F77B64-EF6C-4BB7-A710-99E62CBEF4FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08F77B64-EF6C-4BB7-A710-99E62CBEF4FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08F77B64-EF6C-4BB7-A710-99E62CBEF4FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2682E348-62CA-4B3A-9357-0453C9892DA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2682E348-62CA-4B3A-9357-0453C9892DA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2682E348-62CA-4B3A-9357-0453C9892DA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2682E348-62CA-4B3A-9357-0453C9892DA3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

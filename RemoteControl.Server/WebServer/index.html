@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html class="spread">
+<head>
+    <title>RemoteControl</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    <link href="Content/font-awesome.css" rel="stylesheet" />
+    <link href="Content/main.css" rel="stylesheet" />
+    <script src="Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+
+        var lastPoint = { x: null, y: null };
+        var touchInterval;
+        var volumeIntervalMs = 70;
+        var keyboardInput;
+
+        function onTouchEnd() {
+            lastPoint = { x: null, y: null };
+        }
+
+        function sendTouchDelta(e) {
+
+            e.stopPropagation();
+
+            var xDelta = e.changedTouches[0].pageX - lastPoint.x;
+            var yDelta = e.changedTouches[0].pageY - lastPoint.y;
+
+            if (!lastPoint.x) {
+                sendDelta(0, 0, e.changedTouches[0].pageX, e.changedTouches[0].pageY);
+            } else {
+                sendDelta(xDelta, yDelta, e.changedTouches[0].pageX, e.changedTouches[0].pageY);
+            }
+
+            document.body.scrollLeft = 0;
+            document.body.scrollTop = 0;
+        }
+
+        function sendMouseDelta(e) {
+
+            var xDelta = e.clientX - lastPoint.x;
+            var yDelta = e.clientY - lastPoint.y;
+
+            if (!lastPoint.x) {
+                sendDelta(0, 0, e.clientX, e.clientY);
+            } else {
+                sendDelta(xDelta, yDelta, e.clientX, e.clientY);
+            }
+        }
+
+        function sendDelta(xDelta, yDelta, lastX, lastY) {
+            var div = document.querySelector('#mouse-coordinates');
+            div.innerHTML = 'x: ' + xDelta + ', y: ' + yDelta;
+            div.innerHTML += '<br/>';
+            div.innerHTML += 'xDelta: ' + xDelta + ', yDelta: ' + yDelta;
+
+            lastPoint.x = lastX;
+            lastPoint.y = lastY;
+
+            if (Math.abs(xDelta) < 2 && Math.abs(yDelta) < 2) {
+                return;
+            }
+
+            $.ajax({
+                method: "GET",
+                url: "api/Control/MoveMouseBy?xDelta=" + xDelta.toFixed(0) * 2 + "&yDelta=" + yDelta.toFixed(0) * 2
+            });
+        }
+
+        function sendLeftClick(e) {
+
+            e.stopPropagation();
+
+            $.ajax({
+                method: "GET",
+                url: "api/Control/MouseLeftClick"
+            });
+        }
+
+        function sendRightClick(e) {
+
+            e.stopPropagation();
+
+            $.ajax({
+                method: "GET",
+                url: "api/Control/MouseRightClick"
+            });
+        }
+
+        function sendSpecialKey(e, key) {
+
+            e.stopPropagation();
+
+            $.ajax({
+                method: "GET",
+                url: "api/Control/" + key
+            });
+        }
+
+        function sendSpecialKeyContinues(e, key) {
+
+            e.stopPropagation();
+
+            $.ajax({
+                method: "GET",
+                url: "api/Control/" + key
+            });
+
+            touchInterval = setInterval(function () {
+                console.log(1);
+                $.ajax({
+                    method: "GET",
+                    url: "api/Control/" + key
+                });
+            }, volumeIntervalMs);
+        }
+
+        function sendMute(e) {
+            e.stopPropagation();
+
+            $.ajax({
+                method: "GET",
+                url: "api/Control/KeyboardMute" + key
+            });
+        }
+
+        function keyboardClick(e) {
+            e.stopPropagation();
+            
+
+            if (isKeyboardOpen) {
+                document.querySelector('#mouse-pad').focus();
+            } else {
+                keyboardInput.focus();
+            }
+
+            isKeyboardOpen = !isKeyboardOpen;
+        }
+
+        var isKeyboardOpen = false;
+
+        function pressReturn(e) {
+
+            e.stopPropagation();
+
+            $.ajax({
+                method: "GET",
+                url: "api/Control/KeyboardKey?key=RETURN"
+            });
+        }
+
+        function onKeyup(e) {
+
+            try {
+
+                var letter = keyboardInput.value;
+
+                switch (letter) {
+                    case "\n":
+                        letter = "RETURN";
+                        break;
+                    case "":
+                        letter = "BACK";
+                        break;
+                    case " ":
+                        letter = "SPACE";
+                        break;
+                }
+
+                keyboardInput.value = '';
+
+                e.stopPropagation();
+
+                $.ajax({
+                    method: "GET",
+                    url: "api/Control/KeyboardKey?key=" + letter
+                });
+            } catch (e) {
+                alert(e);
+            }
+        }
+
+        $(function () {
+            keyboardInput = document.querySelector('#keyboard-input');
+        });
+    </script>
+</head>
+<body class="spread" onscroll="return false;">
+    <div style="height: 20%;" id="buttons-container">
+        <div class="btn" style="background-color: yellow;" onclick="sendLeftClick(event);">
+            <img class="icon" src="Content/Images/leftMouse.png"/>
+        </div>
+        <div class="btn" style="background-color: lightgreen;" onclick="sendRightClick(event);">
+            <img class="icon" src="Content/Images/rightMouse.png" />
+        </div>
+        <div class="btn" style="background-color: #b076fb;" onclick="keyboardClick(event);">
+            <i class="fa fa-keyboard-o"></i>
+        </div>
+        <div class="btn" style="background-color: lightpink;" onclick="sendSpecialKey(event, 'KeyboardMute');">
+            <i class="fa fa-volume-off"></i>
+        </div>
+        <div class="btn" style="background-color: lightblue;" ontouchstart="sendSpecialKeyContinues(event, 'KeyboardVolumeDown');" ontouchend="clearInterval(touchInterval);">
+            <i class="fa fa-volume-down"></i>
+        </div>
+        <div class="btn" style="background-color: lightcyan;" ontouchstart="sendSpecialKeyContinues(event, 'KeyboardVolumeUp');" ontouchend="clearInterval(touchInterval);">
+            <i class="fa fa-volume-up"></i>
+        </div>
+        <div class="row-of-4">
+            <div class="btn" style="background-color: yellow;" ontouchstart="sendSpecialKeyContinues(event, 'KeyboardLeft');" ontouchend="clearInterval(touchInterval);">
+                <i class="fa fa-arrow-left"></i>
+            </div>
+            <div class="btn" style="background-color: #b076fb;" ontouchstart="sendSpecialKeyContinues(event, 'KeyboardRight');" ontouchend="clearInterval(touchInterval);">
+                <i class="fa fa-arrow-right"></i>
+            </div>
+            <div class="btn" style="background-color: lightgreen;" ontouchstart="sendSpecialKeyContinues(event, 'KeyboardDown');" ontouchend="clearInterval(touchInterval);">
+                <i class="fa fa-arrow-down"></i>
+            </div>
+            <div class="btn" style="background-color: aqua;" ontouchstart="sendSpecialKeyContinues(event, 'KeyboardUp');" ontouchend="clearInterval(touchInterval);">
+                <i class="fa fa-arrow-up"></i>
+            </div>
+        </div>
+        <div class="btn" style="background-color: antiquewhite; width: 50%;" onclick="onKeyup(event);">
+            <i class="fa fa-undo"></i>
+        </div>
+        <div class="btn" style="background-color: gold; width: 50%;" onclick="pressReturn(event);">
+            <i class="fa fa-check"></i>
+        </div>
+
+    </div>
+    <div id="mouse-pad" onclick="sendLeftClick(event);" ontouchmove="sendTouchDelta(event);" ontouchend="onTouchEnd();" style="height: 80%; background-color: lightsalmon;">
+        <div id="mouse-coordinates"style="position:fixed; bottom: 0; width: 100%; text-align: center;"></div>
+    </div>
+    <textarea id="keyboard-input" style="opacity: 0; position: absolute; top: 0;" onkeyup="onKeyup(event);" rows="4"></textarea>
+</body>
+</html>
