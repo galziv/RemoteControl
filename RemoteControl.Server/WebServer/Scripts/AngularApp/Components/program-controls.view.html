@@ -1,0 +1,42 @@
+﻿<md-fab-toolbar md-open="isOpen" count="demo.count" md-direction="{{demo.selectedDirection}}">
+    <md-fab-trigger class="align-with-text">
+        <md-button aria-label="menu" class="md-fab md-primary">
+            <md-icon>
+                <img src="Content/Images/application.png" style="height: 30px;position: absolute;top: -4px;left: -4px;" />
+            </md-icon>
+        </md-button>
+    </md-fab-trigger>
+    <md-toolbar>
+        <md-fab-actions class="md-toolbar-tools">
+            <div>
+                <md-button>
+                    <img src="Content/Images/chrome.png" class="img-chrome" onclick="openApp('chrome');" />
+                </md-button>
+                <md-button>
+                    <img src="Content/Images/youtube.png" class="img-youtube" onclick="getPage('https://www.youtube.com/')"/>
+                </md-button>
+                <md-button>
+                    <img src="Content/Images/fox-sports-1.png" class="img-kodi" onclick="getPage('http://www.zoptv.com/live/fox-sports-1')" />
+                </md-button>
+                <md-button>
+                    <img src="Content/Images/nat-geo.png" class="img-kodi" onclick="getPage('http://www.zoptv.com/live/nat-geo')" />
+                </md-button>
+                <md-button>
+                    <img src="Content/Images/nasa-tv.png" class="img-kodi" onclick="getPage('http://www.zoptv.com/live/nasa-tv')" />
+                </md-button>
+                <md-button>
+                    <img src="Content/Images/history.png" class="img-kodi" onclick="getPage('http://www.zoptv.com/live/history')" />
+                </md-button>
+                <md-button>
+                    <img src="Content/Images/tnt.png" class="img-kodi" onclick="getPage('http://www.zoptv.com/live/tnt')" />
+                </md-button>
+                <md-button>
+                    <img src="Content/Images/zop-tv.png" class="img-kodi"  onclick="getPage('http://www.zoptv.com')"/>
+                </md-button>
+                <md-button>
+                    <img src="Content/Images/kodi.png" class="img-kodi" onclick="openApp('kodi');" />
+                </md-button>
+            </div>
+        </md-fab-actions>
+    </md-toolbar>
+</md-fab-toolbar>

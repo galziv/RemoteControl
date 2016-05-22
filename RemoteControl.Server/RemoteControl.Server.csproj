@@ -86,37 +86,51 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\KeyHelper.cs" />
+    <Compile Include="Helpers\MediaHelper.cs" />
+    <Compile Include="Helpers\SysHelper.cs" />
     <Compile Include="MissingWebServerRootPathException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="WebServer\ControlController.cs" />
+    <Content Include="WebServer\Content\Images\application.png" />
+    <Content Include="WebServer\Content\Images\fox-sports-1.png" />
+    <Content Include="WebServer\Content\Images\media-remote.png" />
+    <Content Include="WebServer\Content\Images\zop-tv.png" />
+    <Content Include="WebServer\Content\media-controls.css" />
+    <Content Include="WebServer\Scripts\AngularApp\Components\media-controls.controller.js" />
+    <Content Include="WebServer\Scripts\AngularApp\Components\remote-control.module.js" />
+    <Content Include="WebServer\Scripts\AngularApp\Components\program-controls.directive.js" />
+    <Content Include="WebServer\Scripts\AngularApp\Components\program-controls.view.html" />
+    <Content Include="WebServer\Scripts\AngularApp\Components\media-controls.view.html" />
+    <Content Include="WebServer\Scripts\AngularApp\Components\media-controls.directive.js" />
+    <Content Include="WebServer\Scripts\index.js" />
+    <Content Include="WebServer\Scripts\AngularApp\app.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="WebServer\Content\font-awesome.css" />
+    <Content Include="WebServer\Content\Images\chrome.png" />
+    <Content Include="WebServer\Content\Images\kodi.png" />
     <Content Include="WebServer\Content\Images\leftMouse.png" />
     <Content Include="WebServer\Content\Images\rightMouse.png" />
+    <Content Include="WebServer\Content\Images\youtube.png" />
     <Content Include="WebServer\fonts\fontawesome-webfont.svg" />
     <Content Include="WebServer\index.html" />
-    <Content Include="WebServer\Scripts\jquery.validate.js" />
-    <Content Include="WebServer\Scripts\jquery.validate.min.js" />
-    <Content Include="WebServer\Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="WebServer\Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="WebServer\Scripts\modernizr-2.6.2.js" />
-    <Content Include="WebServer\Scripts\respond.js" />
-    <Content Include="WebServer\Scripts\respond.min.js" />
+    <Content Include="WebServer\Scripts\node_modules\angular-animate\angular-animate.js" />
+    <Content Include="WebServer\Scripts\node_modules\angular-material\angular-material.css" />
+    <Content Include="WebServer\Scripts\node_modules\angular-material\angular-material.js" />
+    <Content Include="WebServer\Scripts\node_modules\angular\angular.js" />
     <Content Include="WebServer\Content\main.css" />
     <None Include="WebServer\fonts\fontawesome-webfont.eot" />
     <None Include="WebServer\fonts\fontawesome-webfont.ttf" />
     <None Include="WebServer\fonts\fontawesome-webfont.woff" />
     <None Include="WebServer\fonts\fontawesome-webfont.woff2" />
     <None Include="WebServer\fonts\FontAwesome.otf" />
-    <None Include="WebServer\Scripts\jquery.validate-vsdoc.js" />
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <Content Include="WebServer\Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RemoteControl.Actions\RemoteControl.Actions.csproj">
@@ -125,14 +139,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WebServer\Scripts\ai.0.15.0-build58334.js" />
-    <Content Include="WebServer\Scripts\ai.0.15.0-build58334.min.js" />
-    <Content Include="WebServer\Scripts\bootstrap.js" />
-    <Content Include="WebServer\Scripts\bootstrap.min.js" />
-    <Content Include="WebServer\Scripts\jquery-1.10.2.js" />
-    <Content Include="WebServer\Scripts\jquery-1.10.2.min.js" />
-    <None Include="WebServer\Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="WebServer\Scripts\_references.js" />
+    <Content Include="WebServer\Scripts\Lib\jquery-1.10.2.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

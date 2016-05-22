@@ -22,6 +22,10 @@ namespace RemoteControl.Server
             HttpConfiguration config = new HttpConfiguration();
             var webServerPath = Path.Combine(Environment.CurrentDirectory, "WebServer");
 
+#if DEBUG
+            webServerPath = Path.Combine(Environment.CurrentDirectory, @"..\..\WebServer");
+#endif
+
             config.SuppressDefaultHostAuthentication();
 
             // Web API routes

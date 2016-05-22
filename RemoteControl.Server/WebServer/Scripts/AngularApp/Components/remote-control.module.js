@@ -1,0 +1,1 @@
+﻿window.MediaControls = angular.module('remote-control', []);

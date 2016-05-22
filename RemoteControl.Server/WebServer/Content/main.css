@@ -1,4 +1,10 @@
-﻿
+﻿.side-bar {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
 body {
     overflow: hidden;
     margin: 0;
@@ -52,3 +58,4 @@ img.icon {
     float: left;
     height: 100%;
 }
+

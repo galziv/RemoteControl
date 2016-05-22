@@ -1,4 +1,7 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using System.IO;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Web.Http;
@@ -79,7 +82,19 @@ namespace RemoteControl.Server.WebServer
         [HttpGet]
         public void KeyboardKey(string key)
         {
-            SendData($"key,{key}");
+            SendData($"key|{key}");
+        }
+
+        [HttpGet]
+        public void ChangeLanguage(string key)
+        {
+            SendData("sys|change-language");
+        }
+
+        [HttpGet]
+        public void MediaKey(string key)
+        {
+            SendData(key);
         }
 
         private void SendData(string data)

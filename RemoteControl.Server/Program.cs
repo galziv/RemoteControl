@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Owin.Hosting;
 using RemoteControl.Actions;
+using RemoteControl.Server.Helpers;
 
 namespace RemoteControl.Server
 {
@@ -17,8 +18,8 @@ namespace RemoteControl.Server
     {
         private static TcpListener listener;
         private static TcpClient client;
-        private static Mouse mouse = new Mouse();
-        private static Keyboard keyboard = new Keyboard();
+        private static Mouse mouse;
+        private static Keyboard keyboard;
         private static IDisposable webApp;
         static void Main(string[] args)
         {
@@ -27,6 +28,9 @@ namespace RemoteControl.Server
 
             int webServerPort;
             int listeningPort;
+
+            mouse = new Mouse();
+            keyboard = new Keyboard();
 
             if (!int.TryParse(webServerPortValue, out webServerPort))
             {
@@ -89,7 +93,7 @@ namespace RemoteControl.Server
             string dataReceived = Encoding.ASCII.GetString(buffer, 0, bytesRead);
             Console.WriteLine("Received : " + dataReceived);
 
-            var splitted = dataReceived.Split(',');
+            var splitted = dataReceived.Split('|');
 
             if (splitted.Length == 1)
             {
@@ -126,13 +130,20 @@ namespace RemoteControl.Server
             }
             else
             {
-                if (splitted[0].Equals("key"))
+                switch (splitted[0])
                 {
-                    keyboard.PressKey(splitted[1]);
-                }
-                else
-                {
-                    mouse.MoveBy(int.Parse(splitted[0]), int.Parse(splitted[1]));
+                    case "key":
+                        KeyHelper.Handle(splitted[1]);
+                        break;
+                    case "media":
+                        MediaHelper.Handle(splitted[1]);
+                        break;
+                    case "sys":
+                        SysHelper.Handle(splitted[1]);
+                        break;
+                    default:
+                        mouse.MoveBy(int.Parse(splitted[0]), int.Parse(splitted[1]));
+                        break;
                 }
             }
         }

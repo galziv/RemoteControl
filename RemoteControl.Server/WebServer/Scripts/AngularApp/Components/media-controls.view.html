@@ -1,0 +1,36 @@
+﻿<md-fab-toolbar md-open="isOpen" count="demo.count" md-direction="{{demo.selectedDirection}}">
+    <md-fab-trigger class="align-with-text">
+        <md-button aria-label="menu" class="md-fab md-primary" ng-click="openToolbar();">
+            <md-icon>
+                <img src="Content/Images/media-remote.png" style="height: 50px;position: absolute;top: -14px;left: -12px;" />
+            </md-icon>
+        </md-button>
+    </md-fab-trigger>
+    <md-toolbar>
+        <md-fab-actions class="md-toolbar-tools">
+            <div>
+                <md-button aria-label="Profile" onclick="pressMediaKey('media|prev');">
+                    <i class="fa fa-backward"></i>
+                </md-button>
+                <md-button aria-label="Profile" onclick="pressMediaKey('media|play-pause');">
+                    <i class="fa fa-play"></i>
+                </md-button>
+                <md-button aria-label="Profile" onclick="pressMediaKey('media|stop')">
+                    <i class="fa fa-stop"></i>
+                </md-button>
+                <md-button aria-label="Profile" onclick="pressMediaKey('media|next')">
+                    <i class="fa fa-forward"></i>
+                </md-button>
+                <md-button aria-label="Profile" onclick="sendSpecialKey(event, 'KeyboardMute');">
+                    <i class="fa fa-volume-off"></i>
+                </md-button>
+                <md-button aria-label="Profile" ontouchstart="sendSpecialKeyContinues(event, 'KeyboardVolumeDown');" ontouchend="clearInterval(touchInterval);">
+                    <i class="fa fa-volume-down"></i>
+                </md-button>
+                <md-button aria-label="Profile" ontouchstart="sendSpecialKeyContinues(event, 'KeyboardVolumeUp');" ontouchend="clearInterval(touchInterval);">
+                    <i class="fa fa-volume-up"></i>
+                </md-button>
+            </div>
+        </md-fab-actions>
+    </md-toolbar>
+</md-fab-toolbar>
